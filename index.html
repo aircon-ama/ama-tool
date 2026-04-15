@@ -357,8 +357,8 @@
           <div class="sub">家庭用なら1日2〜4件が目安</div>
         </div>
         <div class="slider-wrap">
-          <input type="range" min="1" max="6" step="1" value="3" id="s-jobs" oninput="calcSide()">
-          <div class="slider-val" id="sv-jobs">3件</div>
+          <input type="range" min="1" max="5" step="1" value="2" id="s-jobs" oninput="calcSide()">
+          <div class="slider-val" id="sv-jobs">2件</div>
         </div>
       </div>
       <div class="slider-row">
@@ -391,7 +391,7 @@
       <div class="result-grid">
         <div class="result-metric">
           <div class="num" id="s-payback">—</div>
-          <div class="lbl">受講費の<br>回収期間</div>
+          <div class="lbl">受講費（79,800円税別）の<br>回収期間</div>
         </div>
         <div class="result-metric">
           <div class="num" id="s-annual">—</div>
@@ -432,11 +432,11 @@
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">1日あたりの施工件数</div>
-          <div class="sub">家庭用：2〜4件 / 業務用：1〜2件</div>
+          <div class="sub">家庭用：2〜4件</div>
         </div>
         <div class="slider-wrap">
-          <input type="range" min="1" max="6" step="1" value="3" id="f-jobs" oninput="calcFull()">
-          <div class="slider-val" id="fv-jobs">3件</div>
+          <input type="range" min="1" max="5" step="1" value="2" id="f-jobs" oninput="calcFull()">
+          <div class="slider-val" id="fv-jobs">2件</div>
         </div>
       </div>
       <div class="slider-row">
@@ -479,7 +479,7 @@
       <div class="result-grid">
         <div class="result-metric">
           <div class="num" id="f-payback">—</div>
-          <div class="lbl">受講費の<br>回収期間</div>
+          <div class="lbl">受講費（79,800円税別）の<br>回収期間</div>
         </div>
         <div class="result-metric">
           <div class="num" id="f-annual">—</div>
@@ -560,7 +560,7 @@ function calcSide() {
   document.getElementById('s-message').textContent       =
     '週' + days + '日・月' + fmt(days * jobs * weeksPerMonth, 0) + '件の施工で、月' +
     fmt(netMonthly) + '万円（年' + fmt(annualNet) + '万円）の副収入に。' +
-    '受講費は約' + (payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月') + 'で回収できます。';
+    '受講費は約' + (payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月') + 'で回収想定。';
 
   drawChart('side-chart', netMonthly, FEE, 12);
 }
@@ -594,7 +594,7 @@ function calcFull() {
     '月' + days + '日稼働・稼働率' + util + '%で、月' + fmt(netMonthly) +
     '万円（年' + fmt(annualNet) + '万円）の収入見込み。' +
     '会社員平均年収との差は' + (diff >= 0 ? '+' : '') + fmt(diff) + '万円。' +
-    '受講費は約' + (payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月') + 'で回収できます。';
+    '受講費は約' + (payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月') + 'で回収想定。';
 
   drawChart('full-chart', netMonthly, FEE, 12);
 }
