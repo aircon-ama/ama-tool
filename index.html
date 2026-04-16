@@ -29,11 +29,7 @@
   }
   .widget { max-width: 680px; margin: 0 auto; padding: 36px 20px 56px; }
 
-  /* ヘッダー */
-  .hero {
-    text-align: center;
-    margin-bottom: 28px;
-  }
+  .hero { text-align: center; margin-bottom: 28px; }
   .hero-eyebrow {
     display: inline-block;
     font-size: 11px;
@@ -55,10 +51,9 @@
   .hero-sub {
     font-size: 13px;
     color: var(--subtext);
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
-  /* モード切替 */
   .mode-bar {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -74,24 +69,12 @@
     text-align: center;
     transition: all 0.15s;
   }
-  .mode-btn.active {
-    border-color: var(--primary);
-    background: var(--primary-light);
-  }
+  .mode-btn.active { border-color: var(--primary); background: var(--primary-light); }
   .mode-btn .mode-icon { font-size: 22px; margin-bottom: 5px; }
-  .mode-btn .mode-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--subtext);
-  }
+  .mode-btn .mode-label { font-size: 14px; font-weight: 700; color: var(--subtext); }
   .mode-btn.active .mode-label { color: var(--primary); }
-  .mode-btn .mode-desc {
-    font-size: 11px;
-    color: var(--subtext);
-    margin-top: 3px;
-  }
+  .mode-btn .mode-desc { font-size: 11px; color: var(--subtext); margin-top: 3px; }
 
-  /* カード */
   .card {
     background: var(--white);
     border: 1px solid var(--border);
@@ -108,7 +91,6 @@
     border-bottom: 1px solid var(--border);
   }
 
-  /* スライダー行 */
   .slider-row {
     display: flex;
     align-items: center;
@@ -154,7 +136,6 @@
     border: 2px solid var(--white);
   }
 
-  /* 結果カード */
   .result-card {
     background: var(--primary);
     border-radius: 14px;
@@ -169,27 +150,10 @@
     text-align: center;
     margin-bottom: 6px;
   }
-  .result-main {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .result-main .big {
-    font-size: 42px;
-    font-weight: 700;
-    color: #FFD080;
-    line-height: 1.1;
-  }
-  .result-main .unit {
-    font-size: 16px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.8);
-    margin-left: 4px;
-  }
-  .result-main .caption {
-    font-size: 12px;
-    color: rgba(255,255,255,0.65);
-    margin-top: 4px;
-  }
+  .result-main { text-align: center; margin-bottom: 20px; }
+  .result-main .big { font-size: 42px; font-weight: 700; color: #FFD080; line-height: 1.1; }
+  .result-main .unit { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.8); margin-left: 4px; }
+  .result-main .caption { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 4px; }
   .result-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0,1fr));
@@ -202,18 +166,8 @@
     padding: 12px 8px;
     text-align: center;
   }
-  .result-metric .num {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.2;
-  }
-  .result-metric .lbl {
-    font-size: 10px;
-    color: rgba(255,255,255,0.7);
-    margin-top: 4px;
-    line-height: 1.4;
-  }
+  .result-metric .num { font-size: 18px; font-weight: 700; color: var(--white); line-height: 1.2; }
+  .result-metric .lbl { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 4px; line-height: 1.4; }
   .result-message {
     background: rgba(255,255,255,0.13);
     border-radius: 8px;
@@ -223,50 +177,19 @@
     line-height: 1.7;
   }
 
-  /* 月別グラフ */
-  .chart-area {
-    margin: 6px 0 0;
-  }
-  .chart-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--subtext);
-    margin-bottom: 10px;
-  }
-  .bar-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 7px;
-  }
+  .chart-area { margin: 6px 0 0; }
+  .chart-title { font-size: 12px; font-weight: 700; color: var(--subtext); margin-bottom: 10px; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
   .bar-lbl { font-size: 11px; color: var(--subtext); width: 36px; text-align: right; flex-shrink: 0; }
-  .bar-track { flex: 1; height: 20px; background: var(--primary-light); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-track { flex: 1; height: 20px; background: var(--primary-light); border-radius: 4px; overflow: hidden; }
   .bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
   .bar-fill.income { background: var(--primary); }
-  .bar-fill.cumulative { background: var(--success); }
   .bar-fill-val { font-size: 10px; font-weight: 700; color: var(--white); white-space: nowrap; }
   .bar-zero { font-size: 10px; color: var(--subtext); padding-left: 4px; }
   .chart-legend { display: flex; gap: 14px; margin-top: 10px; }
   .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--subtext); }
   .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
-  /* 投資回収ライン */
-  .payback-badge {
-    display: inline-block;
-    background: var(--accent);
-    color: var(--white);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 20px;
-    margin: 10px auto 0;
-    display: block;
-    text-align: center;
-    width: fit-content;
-    margin: 10px auto 0;
-  }
-
-  /* FAQ風メモ */
   .memo-box {
     background: var(--accent-light);
     border-left: 4px solid var(--accent);
@@ -275,16 +198,7 @@
     margin-bottom: 14px;
   }
   .memo-title { font-size: 13px; font-weight: 700; color: #B85F00; margin-bottom: 4px; }
-  .memo-body { font-size: 12px; color: #7A4500; line-height: 1.6; }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--subtext);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 10px;
-  }
+  .memo-body { font-size: 12px; color: #7A4500; line-height: 1.7; }
 
   .cta-area { text-align: center; margin-top: 24px; }
   .cta-btn {
@@ -308,7 +222,6 @@
   @media (max-width: 560px) {
     .hero-title { font-size: 18px; }
     .result-main .big { font-size: 34px; }
-    .result-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
     input[type=range] { width: 80px; }
     .slider-val { min-width: 60px; font-size: 12px; }
     .widget { padding: 24px 14px 48px; }
@@ -318,17 +231,16 @@
 <div class="widget">
 
   <div class="hero">
-    <div class="hero-eyebrow">無料 収入シミュレーター</div>
-    <div class="hero-title">AMAを受講したら、<br>いくら稼げるようになる？</div>
-    <div class="hero-sub">あなたの目標に合わせてスライダーを動かすと、<br>受講後の想定収入と投資回収期間がわかります。</div>
+    <div class="hero-eyebrow">収入シミュレーター</div>
+    <div class="hero-title">受講後、いくら稼げるようになる？</div>
+    <div class="hero-sub">副業か独立か、自分に近い条件でスライダーを動かしてみてください。<br>受講費の回収期間と、その後の収入の伸びが確認できます。</div>
   </div>
 
-  <!-- モード切替 -->
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('side')" id="btn-side">
       <div class="mode-icon">🕐</div>
       <div class="mode-label">副業モード</div>
-      <div class="mode-desc">会社員をしながら週末に稼ぐ</div>
+      <div class="mode-desc">今の仕事を続けながら週末に稼ぐ</div>
     </button>
     <button class="mode-btn" onclick="setMode('full')" id="btn-full">
       <div class="mode-icon">🚀</div>
@@ -340,7 +252,7 @@
   <!-- 副業モード -->
   <div id="section-side">
     <div class="card">
-      <div class="card-title">あなたの条件を入力してください</div>
+      <div class="card-title">あなたの条件を動かしてみてください</div>
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">週末の稼働日数</div>
@@ -354,35 +266,35 @@
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">1日あたりの施工件数</div>
-          <div class="sub">家庭用なら1日2〜4件が目安</div>
+          <div class="sub">1日2〜4件が目安</div>
         </div>
         <div class="slider-wrap">
-          <input type="range" min="1" max="5" step="1" value="2" id="s-jobs" oninput="calcSide()">
+          <input type="range" min="1" max="6" step="1" value="2" id="s-jobs" oninput="calcSide()">
           <div class="slider-val" id="sv-jobs">2件</div>
         </div>
       </div>
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">施工1件あたりの単価</div>
-          <div class="sub">標準取付：15,000〜20,000円</div>
+          <div class="sub">地域や取付条件によって変わります</div>
         </div>
         <div class="slider-wrap">
-          <input type="range" min="15000" max="25000" step="1000" value="18000" id="s-price" oninput="calcSide()">
+          <input type="range" min="8000" max="25000" step="1000" value="18000" id="s-price" oninput="calcSide()">
           <div class="slider-val" id="sv-price">1.8万円</div>
         </div>
       </div>
       <div class="slider-row">
         <div class="slider-label">
-          <div class="main">材料費・交通費などの経費率</div>
+          <div class="main">経費率（材料費・交通費など）</div>
         </div>
         <div class="slider-wrap">
-          <input type="range" min="10" max="40" step="5" value="20" id="s-cost" oninput="calcSide()">
-          <div class="slider-val" id="sv-cost">20%</div>
+          <input type="range" min="10" max="40" step="5" value="25" id="s-cost" oninput="calcSide()">
+          <div class="slider-val" id="sv-cost">25%</div>
         </div>
       </div>
     </div>
 
-    <div class="result-card" id="result-side">
+    <div class="result-card">
       <div class="result-label">月間副業収入（手取り概算）</div>
       <div class="result-main">
         <span class="big" id="s-monthly">—</span><span class="unit">万円/月</span>
@@ -391,7 +303,7 @@
       <div class="result-grid">
         <div class="result-metric">
           <div class="num" id="s-payback">—</div>
-          <div class="lbl">受講費（79,800円税別）の<br>回収期間</div>
+          <div class="lbl">受講費の<br>回収期間</div>
         </div>
         <div class="result-metric">
           <div class="num" id="s-annual">—</div>
@@ -406,7 +318,7 @@
     </div>
 
     <div class="card">
-      <div class="chart-title">受講費回収〜累計収入のイメージ（月次）</div>
+      <div class="chart-title">受講費を回収してからの収入の積み上がり（月次）</div>
       <div class="chart-area" id="side-chart"></div>
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:var(--primary);"></div>月間収入</div>
@@ -418,11 +330,11 @@
   <!-- 独立モード -->
   <div id="section-full" class="hidden">
     <div class="card">
-      <div class="card-title">あなたの条件を入力してください</div>
+      <div class="card-title">あなたの条件を動かしてみてください</div>
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">月間稼働日数</div>
-          <div class="sub">独立初年度の現実的な日数</div>
+          <div class="sub">独立初年度は18〜20日が現実的な目安</div>
         </div>
         <div class="slider-wrap">
           <input type="range" min="10" max="25" step="1" value="18" id="f-days" oninput="calcFull()">
@@ -432,26 +344,26 @@
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">1日あたりの施工件数</div>
-          <div class="sub">家庭用：2〜4件</div>
+          <div class="sub">1日2〜4件が目安</div>
         </div>
         <div class="slider-wrap">
-          <input type="range" min="1" max="5" step="1" value="2" id="f-jobs" oninput="calcFull()">
-          <div class="slider-val" id="fv-jobs">2件</div>
+          <input type="range" min="1" max="6" step="1" value="3" id="f-jobs" oninput="calcFull()">
+          <div class="slider-val" id="fv-jobs">3件</div>
         </div>
       </div>
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">施工1件あたりの単価</div>
-          <div class="sub">電気工事士に関わる業務などを増やすほど単価が上がる</div>
+          <div class="sub">地域や取付条件によって変わります</div>
         </div>
         <div class="slider-wrap">
-          <input type="range" min="8000" max="50000" step="1000" value="15000" id="f-price" oninput="calcFull()">
-          <div class="slider-val" id="fv-price">1.5万円</div>
+          <input type="range" min="8000" max="25000" step="1000" value="18000" id="f-price" oninput="calcFull()">
+          <div class="slider-val" id="fv-price">1.8万円</div>
         </div>
       </div>
       <div class="slider-row">
         <div class="slider-label">
-          <div class="main">経費率（材料費・保険・交通費等）</div>
+          <div class="main">経費率（材料費・保険・交通費など）</div>
         </div>
         <div class="slider-wrap">
           <input type="range" min="15" max="45" step="5" value="25" id="f-cost" oninput="calcFull()">
@@ -460,8 +372,8 @@
       </div>
       <div class="slider-row">
         <div class="slider-label">
-          <div class="main">稼働率（受注できる割合）</div>
-          <div class="sub">独立初年度は50〜70%が現実的</div>
+          <div class="main">稼働率（実際に受注できる割合）</div>
+          <div class="sub">独立初年度は50〜70%から始まる人が多い</div>
         </div>
         <div class="slider-wrap">
           <input type="range" min="30" max="100" step="10" value="60" id="f-util" oninput="calcFull()">
@@ -470,7 +382,7 @@
       </div>
     </div>
 
-    <div class="result-card" id="result-full">
+    <div class="result-card">
       <div class="result-label">月間収入（手取り概算）</div>
       <div class="result-main">
         <span class="big" id="f-monthly">—</span><span class="unit">万円/月</span>
@@ -479,7 +391,7 @@
       <div class="result-grid">
         <div class="result-metric">
           <div class="num" id="f-payback">—</div>
-          <div class="lbl">受講費（79,800円税別）の<br>回収期間</div>
+          <div class="lbl">受講費の<br>回収期間</div>
         </div>
         <div class="result-metric">
           <div class="num" id="f-annual">—</div>
@@ -487,14 +399,14 @@
         </div>
         <div class="result-metric">
           <div class="num" id="f-vs-salary">—</div>
-          <div class="lbl">会社員平均年収<br>との比較</div>
+          <div class="lbl">会社員平均年収<br>との差</div>
         </div>
       </div>
       <div class="result-message" id="f-message">条件を設定すると結果が表示されます。</div>
     </div>
 
     <div class="card">
-      <div class="chart-title">受講費回収〜累計収入のイメージ（月次）</div>
+      <div class="chart-title">受講費を回収してからの収入の積み上がり（月次）</div>
       <div class="chart-area" id="full-chart"></div>
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:var(--primary);"></div>月間収入</div>
@@ -505,19 +417,19 @@
 
   <div class="memo-box">
     <div class="memo-title">この試算について</div>
-    <div class="memo-body">上記はあくまで参考シミュレーションです。初期投資の工具代は含まれておりません。実際の収入は受注状況・地域・施工内容によって異なります。</div>
+    <div class="memo-body">実際の収入は受注状況・地域・施工内容によって変わります。受講費は79,800円（税別）。ここでの数字はあくまで目安として参考にしてください。</div>
   </div>
 
   <div class="cta-area">
-    <a class="cta-btn" href="https://aircon-ama.com/" target="_blank">無料相談・受講申し込みはこちら</a>
-    <div class="cta-sub">2日間で技術習得 ／ 大阪松原校・埼玉大宮校</div>
+    <a class="cta-btn" href="https://aircon-ama.com/" target="_blank">受講の詳細・申し込みはこちら</a>
+    <div class="cta-sub">2日間集中講習 ／ 大阪松原校・埼玉大宮校</div>
   </div>
 
 </div>
 
 <script>
 var currentMode = 'side';
-var FEE = 10; // 受講費（万円）想定
+var FEE = 7.98;
 
 function setMode(mode) {
   currentMode = mode;
@@ -552,15 +464,15 @@ function calcSide() {
   var payback       = netMonthly > 0 ? FEE / netMonthly : 99;
   var ten           = annualNet * 10;
 
-  document.getElementById('s-monthly').textContent       = fmt(netMonthly);
+  document.getElementById('s-monthly').textContent        = fmt(netMonthly);
   document.getElementById('s-annual-caption').textContent = '年間換算：' + fmt(annualNet) + '万円';
-  document.getElementById('s-payback').textContent       = payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月';
-  document.getElementById('s-annual').textContent        = fmt(annualNet) + '万円';
-  document.getElementById('s-10year').textContent        = fmt(ten) + '万円';
-  document.getElementById('s-message').textContent       =
+  document.getElementById('s-payback').textContent        = payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月';
+  document.getElementById('s-annual').textContent         = fmt(annualNet) + '万円';
+  document.getElementById('s-10year').textContent         = fmt(ten) + '万円';
+  document.getElementById('s-message').textContent        =
     '週' + days + '日・月' + fmt(days * jobs * weeksPerMonth, 0) + '件の施工で、月' +
-    fmt(netMonthly) + '万円（年' + fmt(annualNet) + '万円）の副収入に。' +
-    '受講費は約' + (payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月') + 'で回収想定。';
+    fmt(netMonthly) + '万円、年間' + fmt(annualNet) + '万円の副収入になります。' +
+    '受講費79,800円は' + (payback < 1 ? '1ヶ月かからずに' : '約' + fmt(payback) + 'ヶ月で') + '回収できる計算です。';
 
   drawChart('side-chart', netMonthly, FEE, 12);
 }
@@ -582,35 +494,34 @@ function calcFull() {
   var netMonthly   = grossMonthly * (1 - cost / 100);
   var annualNet    = netMonthly * 12;
   var payback      = netMonthly > 0 ? FEE / netMonthly : 99;
-  var avgSalary    = 460; // 万円
+  var avgSalary    = 460;
   var diff         = annualNet - avgSalary;
 
   document.getElementById('f-monthly').textContent        = fmt(netMonthly);
-  document.getElementById('f-annual-caption').textContent  = '年間換算：' + fmt(annualNet) + '万円';
+  document.getElementById('f-annual-caption').textContent = '年間換算：' + fmt(annualNet) + '万円';
   document.getElementById('f-payback').textContent        = payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月';
   document.getElementById('f-annual').textContent         = fmt(annualNet) + '万円';
   document.getElementById('f-vs-salary').textContent      = (diff >= 0 ? '+' : '') + fmt(diff) + '万円';
   document.getElementById('f-message').textContent        =
-    '月' + days + '日稼働・稼働率' + util + '%で、月' + fmt(netMonthly) +
-    '万円（年' + fmt(annualNet) + '万円）の収入見込み。' +
-    '会社員平均年収との差は' + (diff >= 0 ? '+' : '') + fmt(diff) + '万円。' +
-    '受講費は約' + (payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月') + 'で回収想定。';
+    '月' + days + '日稼働・稼働率' + util + '%の場合、月' + fmt(netMonthly) +
+    '万円、年間' + fmt(annualNet) + '万円の収入になります。' +
+    '会社員の平均年収とは' + (diff >= 0 ? '+' : '') + fmt(diff) + '万円の差。' +
+    '受講費79,800円は' + (payback < 1 ? '1ヶ月かからずに' : '約' + fmt(payback) + 'ヶ月で') + '回収できます。';
 
   drawChart('full-chart', netMonthly, FEE, 12);
 }
 
 function drawChart(containerId, monthlyIncome, fee, months) {
-  var container = document.getElementById(containerId);
-  var maxBar    = Math.max(monthlyIncome * 1.1, fee * 0.5, 1);
-  var maxCum    = monthlyIncome * months;
-  var maxScale  = Math.max(maxCum, fee) * 1.05;
-  var html      = '';
+  var container  = document.getElementById(containerId);
+  var maxCum     = monthlyIncome * months;
+  var maxScale   = Math.max(maxCum, fee) * 1.05;
+  var html       = '';
   var cumulative = -fee;
 
   for (var m = 1; m <= months; m++) {
     cumulative += monthlyIncome;
-    var incomeW = Math.min(100, Math.round((monthlyIncome / maxScale) * 100));
-    var cumW    = Math.min(100, Math.round((Math.max(0, cumulative) / maxScale) * 100));
+    var incomeW  = Math.min(100, Math.round((monthlyIncome / maxScale) * 100));
+    var cumW     = Math.min(100, Math.round((Math.max(0, cumulative) / maxScale) * 100));
     var cumColor = cumulative >= 0 ? 'var(--success)' : '#B4B2A9';
 
     html += '<div class="bar-row">';
