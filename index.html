@@ -5,254 +5,425 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AMA 収入シミュレーター</title>
 <style>
-  :root {
-    --primary: #005BAC;
-    --primary-light: #E6EFF8;
-    --primary-mid: #B5CDE8;
-    --accent: #FF8A00;
-    --accent-light: #FFF3E0;
-    --bg: #F7F9FC;
-    --text: #222222;
-    --subtext: #666666;
-    --border: #D8E2EE;
-    --white: #ffffff;
-    --success: #0F6E56;
-    --success-light: #E1F5EE;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.6;
-  }
-  .widget { max-width: 680px; margin: 0 auto; padding: 36px 20px 56px; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-  .hero { text-align: center; margin-bottom: 28px; }
-  .hero-eyebrow {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    background: var(--accent-light);
-    padding: 4px 14px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-  }
-  .hero-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--primary);
-    line-height: 1.4;
-    margin-bottom: 8px;
-  }
-  .hero-sub {
-    font-size: 13px;
-    color: var(--subtext);
-    line-height: 1.7;
-  }
+:root {
+  --bg: #fafafa;
+  --white: #ffffff;
+  --surface: #ffffff;
+  --surface2: #f4f6f9;
+  --border: #e8ecf2;
+  --border-light: #f0f2f6;
+  --primary: #1a56db;
+  --primary-light: #eff4ff;
+  --primary-mid: #c7d8ff;
+  --accent: #d4952a;
+  --accent-bg: #fdf8ef;
+  --accent-border: #f0d9a8;
+  --success: #0e7a5a;
+  --success-light: #effaf5;
+  --text: #111827;
+  --subtext: #6b7280;
+  --muted: #9ca3af;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.09), 0 2px 8px rgba(0,0,0,0.05);
+}
 
-  .mode-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-  .mode-btn {
-    padding: 14px 10px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: var(--white);
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.15s;
-  }
-  .mode-btn.active { border-color: var(--primary); background: var(--primary-light); }
-  .mode-btn .mode-icon { font-size: 22px; margin-bottom: 5px; }
-  .mode-btn .mode-label { font-size: 14px; font-weight: 700; color: var(--subtext); }
-  .mode-btn.active .mode-label { color: var(--primary); }
-  .mode-btn .mode-desc { font-size: 11px; color: var(--subtext); margin-top: 3px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 14px;
-  }
-  .card-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
-  }
+body {
+  font-family: 'Inter', 'Helvetica Neue', 'Hiragino Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
-  .slider-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .slider-row:last-child { border-bottom: none; }
-  .slider-label { flex: 1; min-width: 0; }
-  .slider-label .main { font-size: 13px; color: var(--text); }
-  .slider-label .sub { font-size: 11px; color: var(--subtext); margin-top: 2px; }
-  .slider-wrap { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .slider-val {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--primary);
-    min-width: 72px;
-    text-align: right;
-  }
-  input[type=range] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100px;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--primary-mid);
-    outline: none;
-    cursor: pointer;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--primary);
-    cursor: pointer;
-    border: 2px solid var(--white);
-    box-shadow: 0 0 0 1px var(--primary);
-  }
-  input[type=range]::-moz-range-thumb {
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--primary);
-    border: 2px solid var(--white);
-  }
+/* Subtle top accent line */
+body::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, #6ea0ff 100%);
+}
 
-  .result-card {
-    background: var(--primary);
-    border-radius: 14px;
-    padding: 24px 20px 20px;
-    margin-bottom: 14px;
-  }
-  .result-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 0.06em;
-    text-align: center;
-    margin-bottom: 6px;
-  }
-  .result-main { text-align: center; margin-bottom: 20px; }
-  .result-main .big { font-size: 42px; font-weight: 700; color: #FFD080; line-height: 1.1; }
-  .result-main .unit { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.8); margin-left: 4px; }
-  .result-main .caption { font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 4px; }
-  .result-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0,1fr));
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  .result-metric {
-    background: rgba(255,255,255,0.12);
-    border-radius: 8px;
-    padding: 12px 8px;
-    text-align: center;
-  }
-  .result-metric .num { font-size: 18px; font-weight: 700; color: var(--white); line-height: 1.2; }
-  .result-metric .lbl { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 4px; line-height: 1.4; }
-  .result-message {
-    background: rgba(255,255,255,0.13);
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 13px;
-    color: var(--white);
-    line-height: 1.7;
-  }
+.widget {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 52px 24px 80px;
+}
 
-  .chart-area { margin: 6px 0 0; }
-  .chart-title { font-size: 12px; font-weight: 700; color: var(--subtext); margin-bottom: 10px; }
-  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
-  .bar-lbl { font-size: 11px; color: var(--subtext); width: 36px; text-align: right; flex-shrink: 0; }
-  .bar-track { flex: 1; height: 20px; background: var(--primary-light); border-radius: 4px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
-  .bar-fill.income { background: var(--primary); }
-  .bar-fill-val { font-size: 10px; font-weight: 700; color: var(--white); white-space: nowrap; }
-  .bar-zero { font-size: 10px; color: var(--subtext); padding-left: 4px; }
-  .chart-legend { display: flex; gap: 14px; margin-top: 10px; }
-  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--subtext); }
-  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+/* ── Hero ── */
+.hero { text-align: center; margin-bottom: 48px; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: 1px solid var(--primary-mid);
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 22px;
+}
+.hero-title {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--text);
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+.hero-title span { color: var(--primary); }
+.hero-sub {
+  font-size: 14px;
+  color: var(--subtext);
+  line-height: 1.85;
+  font-weight: 400;
+}
 
-  .memo-box {
-    background: var(--accent-light);
-    border-left: 4px solid var(--accent);
-    border-radius: 0 10px 10px 0;
-    padding: 14px 16px;
-    margin-bottom: 14px;
-  }
-  .memo-title { font-size: 13px; font-weight: 700; color: #B85F00; margin-bottom: 4px; }
-  .memo-body { font-size: 12px; color: #7A4500; line-height: 1.7; }
+/* ── Divider ── */
+.divider {
+  width: 40px; height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 20px auto 0;
+}
 
-  .cta-area { text-align: center; margin-top: 24px; }
-  .cta-btn {
-    display: inline-block;
-    background: var(--accent);
-    color: var(--white);
-    font-size: 15px;
-    font-weight: 700;
-    padding: 15px 36px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: opacity 0.15s;
-  }
-  .cta-btn:hover { opacity: 0.88; }
-  .cta-sub { font-size: 12px; color: var(--subtext); margin-top: 8px; }
+/* ── Mode bar ── */
+.mode-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.mode-btn {
+  padding: 18px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.mode-btn:hover {
+  border-color: var(--primary-mid);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.mode-btn.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(26,86,219,0.08), var(--shadow-md);
+}
 
-  .hidden { display: none; }
+/* SVG icon wrap */
+.mode-icon-wrap {
+  width: 38px; height: 38px;
+  border-radius: 9px;
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.18s;
+  border: 1px solid var(--border);
+}
+.mode-btn.active .mode-icon-wrap {
+  background: var(--primary-light);
+  border-color: var(--primary-mid);
+}
+.mode-icon-wrap svg { width: 18px; height: 18px; }
+.mode-btn .mode-icon-wrap svg { stroke: var(--subtext); }
+.mode-btn.active .mode-icon-wrap svg { stroke: var(--primary); }
 
-  @media (max-width: 560px) {
-    .hero-title { font-size: 18px; }
-    .result-main .big { font-size: 34px; }
-    input[type=range] { width: 80px; }
-    .slider-val { min-width: 60px; font-size: 12px; }
-    .widget { padding: 24px 14px 48px; }
-  }
+.mode-text .mode-label {
+  font-size: 13px; font-weight: 700;
+  color: var(--subtext);
+  display: block;
+}
+.mode-btn.active .mode-text .mode-label { color: var(--primary); }
+.mode-text .mode-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ── Card ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+.card-header-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--subtext);
+}
+
+/* ── Sliders ── */
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.slider-row:last-child { border-bottom: none; padding-bottom: 0; }
+.slider-row:first-of-type { padding-top: 0; }
+.slider-label { flex: 1; min-width: 0; }
+.slider-label .main { font-size: 13px; font-weight: 500; color: var(--text); }
+.slider-label .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.slider-wrap { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.slider-val {
+  font-size: 13px; font-weight: 700;
+  color: var(--primary);
+  min-width: 64px; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+input[type=range] {
+  -webkit-appearance: none; appearance: none;
+  width: 110px; height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none; cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: 2.5px solid var(--white);
+  box-shadow: 0 0 0 1.5px var(--primary), var(--shadow-sm);
+  transition: box-shadow 0.15s;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 4px rgba(26,86,219,0.15), var(--shadow-sm);
+}
+input[type=range]::-moz-range-thumb {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2.5px solid var(--white);
+}
+
+/* ── Result card ── */
+.result-card {
+  border-radius: 14px;
+  padding: 30px 24px 24px;
+  margin-bottom: 16px;
+  background: linear-gradient(150deg, #1a3a6e 0%, #0f2347 100%);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+/* subtle light orb */
+.result-card::after {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(110,160,255,0.12) 0%, transparent 68%);
+  pointer-events: none;
+}
+.result-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-align: center; margin-bottom: 10px;
+}
+.result-main { text-align: center; margin-bottom: 26px; }
+.result-main .big {
+  font-size: 58px; font-weight: 800;
+  color: #f5d47a;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.result-main .unit { font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.55); margin-left: 4px; }
+.result-main .caption { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 8px; }
+
+.result-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 10px; margin-bottom: 18px;
+}
+.result-metric {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 14px 10px; text-align: center;
+}
+.result-metric .num {
+  font-size: 16px; font-weight: 700;
+  color: #fff; line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.result-metric .lbl { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 5px; line-height: 1.5; }
+.result-message {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.85;
+}
+
+/* ── Chart ── */
+.chart-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 18px;
+}
+.chart-header-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%; background: var(--success); flex-shrink: 0;
+}
+.chart-title {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--subtext);
+}
+.bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-lbl { font-size: 10px; color: var(--muted); width: 32px; text-align: right; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.bar-track { flex: 1; height: 16px; background: var(--surface2); border-radius: 4px; overflow: hidden; border: 1px solid var(--border-light); }
+.bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
+.bar-fill.income { background: linear-gradient(90deg, #5b8fea, var(--primary)); }
+.bar-fill-val { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.9); white-space: nowrap; }
+.bar-zero { font-size: 9px; color: var(--muted); padding-left: 6px; }
+.chart-legend { display: flex; gap: 16px; margin-top: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── Memo ── */
+.memo-box {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.memo-icon {
+  width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+  color: var(--accent);
+}
+.memo-title { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+.memo-body { font-size: 12px; color: #7a5c1e; line-height: 1.75; }
+
+/* ── CTA ── */
+.cta-area { text-align: center; margin-top: 36px; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, #1a3a7a 0%, #0f2347 100%);
+  color: #fff;
+  font-size: 14px; font-weight: 700;
+  padding: 17px 42px;
+  border-radius: 10px; border: none;
+  cursor: pointer; text-decoration: none;
+  letter-spacing: 0.025em;
+  box-shadow: 0 4px 20px rgba(15,35,71,0.28), 0 1px 4px rgba(15,35,71,0.2);
+  transition: all 0.22s ease;
+  position: relative; overflow: hidden;
+}
+.cta-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 100%);
+  pointer-events: none;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 36px rgba(15,35,71,0.36), 0 2px 8px rgba(15,35,71,0.2);
+}
+.cta-btn:active { transform: translateY(0); }
+.cta-arrow {
+  width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7;
+  transition: transform 0.2s;
+}
+.cta-btn:hover .cta-arrow { transform: translateX(3px); }
+.cta-sub { font-size: 12px; color: var(--muted); margin-top: 10px; letter-spacing: 0.02em; }
+
+.hidden { display: none; }
+
+@media (max-width: 560px) {
+  .hero-title { font-size: 21px; }
+  .result-main .big { font-size: 44px; }
+  input[type=range] { width: 80px; }
+  .slider-val { min-width: 58px; font-size: 12px; }
+  .widget { padding: 32px 16px 60px; }
+  .mode-btn { padding: 14px 12px; gap: 10px; }
+}
 </style>
-
+</head>
+<body>
 <div class="widget">
 
   <div class="hero">
-    <div class="hero-eyebrow">収入シミュレーター</div>
-    <div class="hero-title">家庭用エアコン取付、いくら収入を得ることができるのか？</div>
+    <div class="hero-badge">収入シミュレーター</div>
+    <div class="hero-title">家庭用エアコン取付で<br><span>いくら稼げるのか？</span></div>
     <div class="hero-sub">副業か独立か、自分に近い条件でスライダーを動かしてみてください。<br>受講費の回収期間と、その後の収入の伸びが確認できます。</div>
+    <div class="divider"></div>
   </div>
 
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('side')" id="btn-side">
-      <div class="mode-icon">🕐</div>
-      <div class="mode-label">副業モード</div>
-      <div class="mode-desc">今の仕事を続けながら週末に稼ぐ</div>
+      <div class="mode-icon-wrap">
+        <!-- Clock icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/>
+          <polyline points="12 7 12 12 15.5 14.5"/>
+        </svg>
+      </div>
+      <div class="mode-text">
+        <span class="mode-label">副業モード</span>
+        <div class="mode-desc">今の仕事を続けながら週末に稼ぐ</div>
+      </div>
     </button>
     <button class="mode-btn" onclick="setMode('full')" id="btn-full">
-      <div class="mode-icon">🚀</div>
-      <div class="mode-label">独立モード</div>
-      <div class="mode-desc">専業フリーランスとして独立する</div>
+      <div class="mode-icon-wrap">
+        <!-- Trending up icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+          <polyline points="16 7 22 7 22 13"/>
+        </svg>
+      </div>
+      <div class="mode-text">
+        <span class="mode-label">独立モード</span>
+        <div class="mode-desc">専業フリーランスとして独立する</div>
+      </div>
     </button>
   </div>
 
   <!-- 副業モード -->
   <div id="section-side">
     <div class="card">
-      <div class="card-title">あなたの条件を動かしてみてください</div>
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <div class="card-title">あなたの条件を設定</div>
+      </div>
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">週末の稼働日数</div>
@@ -298,28 +469,22 @@
       <div class="result-label">月間副業収入（手取り概算）</div>
       <div class="result-main">
         <span class="big" id="s-monthly">—</span><span class="unit">万円/月</span>
-        <div class="caption" id="s-annual-caption">年間換算：—万円</div>
+        <div class="caption" id="s-annual-caption">年間換算：— 万円</div>
       </div>
       <div class="result-grid">
-        <div class="result-metric">
-          <div class="num" id="s-payback">—</div>
-          <div class="lbl">受講費の<br>回収期間</div>
-        </div>
-        <div class="result-metric">
-          <div class="num" id="s-annual">—</div>
-          <div class="lbl">年間副業<br>収入</div>
-        </div>
-        <div class="result-metric">
-          <div class="num" id="s-10year">—</div>
-          <div class="lbl">10年間の<br>累計収入</div>
-        </div>
+        <div class="result-metric"><div class="num" id="s-payback">—</div><div class="lbl">受講費の<br>回収期間</div></div>
+        <div class="result-metric"><div class="num" id="s-annual">—</div><div class="lbl">年間副業<br>収入</div></div>
+        <div class="result-metric"><div class="num" id="s-10year">—</div><div class="lbl">10年間の<br>累計収入</div></div>
       </div>
       <div class="result-message" id="s-message">条件を設定すると結果が表示されます。</div>
     </div>
 
     <div class="card">
-      <div class="chart-title">受講費を回収してからの収入の積み上がり（月次）</div>
-      <div class="chart-area" id="side-chart"></div>
+      <div class="chart-header">
+        <div class="chart-header-dot"></div>
+        <div class="chart-title">受講費回収後の収入積み上がり（月次）</div>
+      </div>
+      <div id="side-chart"></div>
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:var(--primary);"></div>月間収入</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--success);"></div>累計収入</div>
@@ -330,7 +495,10 @@
   <!-- 独立モード -->
   <div id="section-full" class="hidden">
     <div class="card">
-      <div class="card-title">あなたの条件を動かしてみてください</div>
+      <div class="card-header">
+        <div class="card-header-dot"></div>
+        <div class="card-title">あなたの条件を設定</div>
+      </div>
       <div class="slider-row">
         <div class="slider-label">
           <div class="main">月間稼働日数</div>
@@ -386,28 +554,22 @@
       <div class="result-label">月間収入（手取り概算）</div>
       <div class="result-main">
         <span class="big" id="f-monthly">—</span><span class="unit">万円/月</span>
-        <div class="caption" id="f-annual-caption">年間換算：—万円</div>
+        <div class="caption" id="f-annual-caption">年間換算：— 万円</div>
       </div>
       <div class="result-grid">
-        <div class="result-metric">
-          <div class="num" id="f-payback">—</div>
-          <div class="lbl">受講費の<br>回収期間</div>
-        </div>
-        <div class="result-metric">
-          <div class="num" id="f-annual">—</div>
-          <div class="lbl">年間収入<br>（概算）</div>
-        </div>
-        <div class="result-metric">
-          <div class="num" id="f-vs-salary">—</div>
-          <div class="lbl">会社員平均年収<br>との差</div>
-        </div>
+        <div class="result-metric"><div class="num" id="f-payback">—</div><div class="lbl">受講費の<br>回収期間</div></div>
+        <div class="result-metric"><div class="num" id="f-annual">—</div><div class="lbl">年間収入<br>（概算）</div></div>
+        <div class="result-metric"><div class="num" id="f-vs-salary">—</div><div class="lbl">会社員平均年収<br>との差</div></div>
       </div>
       <div class="result-message" id="f-message">条件を設定すると結果が表示されます。</div>
     </div>
 
     <div class="card">
-      <div class="chart-title">受講費を回収してからの収入の積み上がり（月次）</div>
-      <div class="chart-area" id="full-chart"></div>
+      <div class="chart-header">
+        <div class="chart-header-dot"></div>
+        <div class="chart-title">受講費回収後の収入積み上がり（月次）</div>
+      </div>
+      <div id="full-chart"></div>
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:var(--primary);"></div>月間収入</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--success);"></div>累計収入</div>
@@ -416,23 +578,34 @@
   </div>
 
   <div class="memo-box">
-    <div class="memo-title">この試算について</div>
-    <div class="memo-body">実際の収入は受注状況・地域・施工内容によって変わります。受講費は79,800円（税別）。ここでの数字はあくまで目安として参考にしてください。</div>
+    <svg class="memo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <div>
+      <div class="memo-title">この試算について</div>
+      <div class="memo-body">実際の収入は受注状況・地域・施工内容によって変わります。受講費は79,800円（税別）。ここでの数字はあくまで目安として参考にしてください。</div>
+    </div>
   </div>
 
   <div class="cta-area">
-    <a class="cta-btn" href="https://aircon-ama.com/" target="_blank">受講の詳細・申し込みはこちら</a>
+    <a class="cta-btn" href="https://aircon-ama.com/" target="_blank">
+      受講の詳細・申し込みはこちら
+      <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="12 5 19 12 12 19"/>
+      </svg>
+    </a>
     <div class="cta-sub">2日間集中講習 ／ 大阪松原校・埼玉大宮校</div>
   </div>
 
 </div>
 
 <script>
-var currentMode = 'side';
 var FEE = 7.98;
 
 function setMode(mode) {
-  currentMode = mode;
   document.getElementById('section-side').classList.toggle('hidden', mode !== 'side');
   document.getElementById('section-full').classList.toggle('hidden', mode !== 'full');
   document.getElementById('btn-side').classList.toggle('active', mode === 'side');
@@ -454,27 +627,23 @@ function calcSide() {
 
   document.getElementById('sv-days').textContent  = days + '日';
   document.getElementById('sv-jobs').textContent  = jobs + '件';
-  document.getElementById('sv-price').textContent = (price / 10000).toFixed(1) + '万円';
+  document.getElementById('sv-price').textContent = (price/10000).toFixed(1) + '万円';
   document.getElementById('sv-cost').textContent  = cost + '%';
 
-  var weeksPerMonth = 4.3;
-  var grossMonthly  = days * jobs * price * weeksPerMonth / 10000;
-  var netMonthly    = grossMonthly * (1 - cost / 100);
-  var annualNet     = netMonthly * 12;
-  var payback       = netMonthly > 0 ? FEE / netMonthly : 99;
-  var ten           = annualNet * 10;
+  var wpm = 4.3, gross = days*jobs*price*wpm/10000;
+  var net = gross*(1-cost/100), ann = net*12;
+  var pb  = net > 0 ? FEE/net : 99, ten = ann*10;
 
-  document.getElementById('s-monthly').textContent        = fmt(netMonthly);
-  document.getElementById('s-annual-caption').textContent = '年間換算：' + fmt(annualNet) + '万円';
-  document.getElementById('s-payback').textContent        = payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月';
-  document.getElementById('s-annual').textContent         = fmt(annualNet) + '万円';
-  document.getElementById('s-10year').textContent         = fmt(ten) + '万円';
+  document.getElementById('s-monthly').textContent        = fmt(net);
+  document.getElementById('s-annual-caption').textContent = '年間換算：' + fmt(ann) + ' 万円';
+  document.getElementById('s-payback').textContent        = pb<1?'1ヶ月未満':fmt(pb)+'ヶ月';
+  document.getElementById('s-annual').textContent         = fmt(ann)+'万円';
+  document.getElementById('s-10year').textContent         = fmt(ten)+'万円';
   document.getElementById('s-message').textContent        =
-    '週' + days + '日・月' + fmt(days * jobs * weeksPerMonth, 0) + '件の施工で、月' +
-    fmt(netMonthly) + '万円、年間' + fmt(annualNet) + '万円の副収入になります。' +
-    '受講費79,800円は' + (payback < 1 ? '1ヶ月かからずに' : '約' + fmt(payback) + 'ヶ月で') + '回収できる計算です。';
-
-  drawChart('side-chart', netMonthly, FEE, 12);
+    '週'+days+'日・月'+fmt(days*jobs*wpm,0)+'件の施工で、月'+fmt(net)+
+    '万円、年間'+fmt(ann)+'万円の副収入になります。受講費79,800円は'+
+    (pb<1?'1ヶ月かからずに':'約'+fmt(pb)+'ヶ月で')+'回収できる計算です。';
+  drawChart('side-chart', net, FEE, 12);
 }
 
 function calcFull() {
@@ -484,60 +653,49 @@ function calcFull() {
   var cost  = parseInt(document.getElementById('f-cost').value);
   var util  = parseInt(document.getElementById('f-util').value);
 
-  document.getElementById('fv-days').textContent  = days + '日';
-  document.getElementById('fv-jobs').textContent  = jobs + '件';
-  document.getElementById('fv-price').textContent = (price / 10000).toFixed(1) + '万円';
-  document.getElementById('fv-cost').textContent  = cost + '%';
-  document.getElementById('fv-util').textContent  = util + '%';
+  document.getElementById('fv-days').textContent  = days+'日';
+  document.getElementById('fv-jobs').textContent  = jobs+'件';
+  document.getElementById('fv-price').textContent = (price/10000).toFixed(1)+'万円';
+  document.getElementById('fv-cost').textContent  = cost+'%';
+  document.getElementById('fv-util').textContent  = util+'%';
 
-  var grossMonthly = days * jobs * price * (util / 100) / 10000;
-  var netMonthly   = grossMonthly * (1 - cost / 100);
-  var annualNet    = netMonthly * 12;
-  var payback      = netMonthly > 0 ? FEE / netMonthly : 99;
-  var avgSalary    = 460;
-  var diff         = annualNet - avgSalary;
+  var gross = days*jobs*price*(util/100)/10000;
+  var net   = gross*(1-cost/100), ann = net*12;
+  var pb    = net>0?FEE/net:99, diff = ann-460;
 
-  document.getElementById('f-monthly').textContent        = fmt(netMonthly);
-  document.getElementById('f-annual-caption').textContent = '年間換算：' + fmt(annualNet) + '万円';
-  document.getElementById('f-payback').textContent        = payback < 1 ? '1ヶ月未満' : fmt(payback) + 'ヶ月';
-  document.getElementById('f-annual').textContent         = fmt(annualNet) + '万円';
-  document.getElementById('f-vs-salary').textContent      = (diff >= 0 ? '+' : '') + fmt(diff) + '万円';
+  document.getElementById('f-monthly').textContent        = fmt(net);
+  document.getElementById('f-annual-caption').textContent = '年間換算：'+fmt(ann)+' 万円';
+  document.getElementById('f-payback').textContent        = pb<1?'1ヶ月未満':fmt(pb)+'ヶ月';
+  document.getElementById('f-annual').textContent         = fmt(ann)+'万円';
+  document.getElementById('f-vs-salary').textContent      = (diff>=0?'+':'')+fmt(diff)+'万円';
   document.getElementById('f-message').textContent        =
-    '月' + days + '日稼働・稼働率' + util + '%の場合、月' + fmt(netMonthly) +
-    '万円、年間' + fmt(annualNet) + '万円の収入になります。' +
-    '会社員の平均年収とは' + (diff >= 0 ? '+' : '') + fmt(diff) + '万円の差。' +
-    '受講費79,800円は' + (payback < 1 ? '1ヶ月かからずに' : '約' + fmt(payback) + 'ヶ月で') + '回収できます。';
-
-  drawChart('full-chart', netMonthly, FEE, 12);
+    '月'+days+'日稼働・稼働率'+util+'%の場合、月'+fmt(net)+
+    '万円、年間'+fmt(ann)+'万円の収入になります。会社員の平均年収とは'+
+    (diff>=0?'+':'')+fmt(diff)+'万円の差。受講費79,800円は'+
+    (pb<1?'1ヶ月かからずに':'約'+fmt(pb)+'ヶ月で')+'回収できます。';
+  drawChart('full-chart', net, FEE, 12);
 }
 
-function drawChart(containerId, monthlyIncome, fee, months) {
-  var container  = document.getElementById(containerId);
-  var maxCum     = monthlyIncome * months;
-  var maxScale   = Math.max(maxCum, fee) * 1.05;
-  var html       = '';
-  var cumulative = -fee;
-
-  for (var m = 1; m <= months; m++) {
-    cumulative += monthlyIncome;
-    var incomeW  = Math.min(100, Math.round((monthlyIncome / maxScale) * 100));
-    var cumW     = Math.min(100, Math.round((Math.max(0, cumulative) / maxScale) * 100));
-    var cumColor = cumulative >= 0 ? 'var(--success)' : '#B4B2A9';
-
+function drawChart(id, monthly, fee, months) {
+  var el = document.getElementById(id);
+  var max = Math.max(monthly*months, fee)*1.05;
+  var html = '', cum = -fee;
+  for (var m=1; m<=months; m++) {
+    cum += monthly;
+    var iw = Math.min(100, Math.round((monthly/max)*100));
+    var cw = Math.min(100, Math.round((Math.max(0,cum)/max)*100));
+    var cc = cum>=0?'linear-gradient(90deg,rgba(14,122,90,0.5),#0e7a5a)':'rgba(156,163,175,0.35)';
     html += '<div class="bar-row">';
-    html += '<div class="bar-lbl">' + m + 'ヶ月</div>';
-    html += '<div style="flex:1;display:flex;flex-direction:column;gap:3px;">';
-    html += '<div class="bar-track"><div class="bar-fill income" style="width:' + incomeW + '%"><span class="bar-fill-val">' + fmt(monthlyIncome) + '万</span></div></div>';
-    html += '<div class="bar-track"><div class="bar-fill" style="width:' + cumW + '%;background:' + cumColor + ';">' +
-      (cumW > 15 ? '<span class="bar-fill-val">' + fmt(cumulative) + '万</span>' : '') +
-      '</div>' +
-      (cumW === 0 ? '<span class="bar-zero">' + fmt(cumulative) + '万</span>' : '') +
-      '</div>';
+    html += '<div class="bar-lbl">'+m+'ヶ月</div>';
+    html += '<div style="flex:1;display:flex;flex-direction:column;gap:4px;">';
+    html += '<div class="bar-track"><div class="bar-fill income" style="width:'+iw+'%"><span class="bar-fill-val">'+fmt(monthly)+'万</span></div></div>';
+    html += '<div class="bar-track"><div class="bar-fill" style="width:'+cw+'%;background:'+cc+';">'+(cw>12?'<span class="bar-fill-val">'+fmt(cum)+'万</span>':'')+'</div>'+(cw===0?'<span class="bar-zero">'+fmt(cum)+'万</span>':'')+'</div>';
     html += '</div></div>';
   }
-  container.innerHTML = html;
+  el.innerHTML = html;
 }
 
 calcSide();
 </script>
+</body>
 </html>
