@@ -719,6 +719,32 @@ function drawChart(id, monthly, fee, months) {
 }
 
 calcSide();
+  <!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- ここに週末色付けCSSを入れる -->
+  <style>
+    /* 日曜の背景色 */
+    .tockify-day-Sun {
+      background-color: #E3F2FD; /* AMA淡ブルー */
+    }
+
+    /* 土曜の背景色 */
+    .tockify-day-Sat {
+      background-color: #E8F5E9; /* AMAグリーン淡色 */
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- Tockify カレンダー本体 -->
+  <div data-tockify-component="calendar" data-tockify-calendar="aircon.mart.academy"></div>
+
+  <!-- Tockify スクリプト -->
+  <script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js">
 </script>
 </body>
 </html>
